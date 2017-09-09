@@ -21,7 +21,7 @@ function categories (state = initialState, action) {
 
     default:
     return state
-    
+
   }
 
 }
