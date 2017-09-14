@@ -142,7 +142,7 @@ class CreatePost extends Component {
           {
             categories.display &&
             categories.display.map((category) => (
-              <div className="just so that jsx works">
+              <div key={category.name} className="just so that jsx works">
                 {!this.postId ? (
                   <FormGroup check>
                     <Label check>

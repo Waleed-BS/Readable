@@ -28,12 +28,12 @@ class ListComments extends Component {
 
   componentDidMount() {
 
-    const { getComments, match } = this.props
+    const { getCommentsDispatch, match } = this.props
 
     ReadableAPI.getComments(match.params.postId).then((data) => {
       const filteredComments = data.filter( (comment) => comment.deleted !== true )
       // dispatch action to get all comments from backend server
-      getComments(filteredComments)
+      getCommentsDispatch(filteredComments)
     })
 
   }
@@ -69,7 +69,7 @@ class ListComments extends Component {
   addComment = () => {
 
     const { newBody, newAuthor } = this.state
-    const { match } = this.props
+    const { match, addCommentDispatch } = this.props
 
     const newComment = {
       id: uuidv4(),
@@ -80,7 +80,7 @@ class ListComments extends Component {
     }
 
     ReadableAPI.createComment(newComment).then((data) => {
-      addComment(data)
+      addCommentDispatch(data)
     })
 
     this.setState({
@@ -135,7 +135,7 @@ class ListComments extends Component {
         {
           comments.display &&
           listComments.map( (comment) =>
-          <Comment passedComment={comment}/>)
+          <Comment key={comment.id} passedComment={comment}/>)
         }
 
         <Form>
@@ -165,10 +165,10 @@ function mapStateToProps({ comments }) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    editComment: (data) => dispatch(editComment({ comment: data})),
-    deleteComment: (data) => dispatch(deleteComment({ commentId: data})),
-    addComment: (data) => dispatch(addComment({comment: data})),
-    getComments: (data) => dispatch(getComments({comments: data})),
+    editCommentDispatch: (data) => dispatch(editComment({ comment: data})),
+    deleteCommentDispatch: (data) => dispatch(deleteComment({ commentId: data})),
+    addCommentDispatch: (data) => dispatch(addComment({comment: data})),
+    getCommentsDispatch: (data) => dispatch(getComments({comments: data})),
   }
 }
 

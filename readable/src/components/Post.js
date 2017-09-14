@@ -18,24 +18,28 @@ import React, { Component } from 'react';
 class Post extends Component {
 
   voteClickedOnPost = (option) => {
-    const { passedPost } = this.props
+    const { passedPost, editPostDispatch } = this.props
     ReadableAPI.voteOnPost(passedPost.id, option).then((data) => {
-      editPost(data)
+      editPostDispatch(data)
+      // this.setState({
+      //   votes: data.voteScore
+      // })
     })
+
 
   }
 
   deletePost = () => {
 
-    const { passedPost } = this.props
+    const { passedPost, deletePostDispatch } = this.props
 
     ReadableAPI.deletePost(passedPost.id).then((data) => {
 
-      deletePost(passedPost.id)
-
-      this.props.history.push("/")
+      deletePostDispatch(passedPost.id)
 
     })
+
+    this.props.history.push('/');
 
   }
 
@@ -101,9 +105,9 @@ class Post extends Component {
 
 function mapDispatchToProps (dispatch) {
   return {
-    editPost: (data) => dispatch(editPost({post: data})),
-    deletePost: (data) => dispatch(deletePost({postId: data})),
+    editPostDispatch: (data) => dispatch(editPost({post: data})),
+    deletePostDispatch: (data) => dispatch(deletePost({postId: data}))
   }
 }
 
-export default withRouter(connect(mapDispatchToProps)(Post))
+export default withRouter(connect(null, mapDispatchToProps)(Post))

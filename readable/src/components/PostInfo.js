@@ -27,25 +27,30 @@ class PostInfo extends Component {
     const { match } = this.props
     ReadableAPI.getPost(match.params.postId).then((data) => {
       this.setState(data)
+      this.setState({
+        votes: data.voteScore
+      })
     })
 
   }
 
   voteClickedOnPost = (option) => {
-    const { post } = this.props
-    ReadableAPI.voteOnPost(post.id, option).then((data) => {
-      editPost(data)
+    const { match, editPostDispatch } = this.props
+    ReadableAPI.voteOnPost(match.params.postId, option).then((data) => {
+      this.setState({
+        votes: data.voteScore
+      })
     })
 
   }
 
   deletePost = () => {
 
-    const { post } = this.props
+    const { post, deletePostDispatch } = this.props
 
     ReadableAPI.deletePost(post.id).then((data) => {
 
-      deletePost(post.id)
+      deletePostDispatch(post.id)
 
       this.props.history.push("/")
 
@@ -55,11 +60,11 @@ class PostInfo extends Component {
 
   editPost = () => {
 
-    const { post, title, body } = this.props
+    const { post, title, body, editPostDispatch } = this.props
 
     ReadableAPI.editPost(post.id, title, body).then((data) => {
 
-      editPost(post.id)
+      editPostDispatch(post.id)
 
     })
 
@@ -79,6 +84,20 @@ class PostInfo extends Component {
       <div className="PostInfo">
 
         <Categories/>
+
+        <div className="voteScore">
+          <button className="social-like" onClick={() => this.voteClickedOnPost('upVote')}>
+            <span className="like"><i className="glyphicon glyphicon-thumbs-up"></i></span>
+          </button>
+
+          {" "+ this.state.votes + " "}
+
+          <button className="social-dislike" onClick={() => this.voteClickedOnPost('downVote')}>
+            <span className="like"><i className="glyphicon glyphicon-thumbs-down"></i></span>
+            {/* <span className="dislike" >0</span> */}
+          </button>
+
+        </div>
 
         <p>posted {timeago().format(timestamp)} by {author}</p>
         <Jumbotron>
@@ -101,4 +120,11 @@ class PostInfo extends Component {
 }
 
 
-export default withRouter(connect()(PostInfo))
+function mapDispatchToProps (dispatch) {
+  return {
+    editPostDispatch: (data) => dispatch(editPost({post: data})),
+    deletePostDispatch: (data) => dispatch(deletePost({postId: data}))
+  }
+}
+
+export default withRouter(connect(null, mapDispatchToProps)(PostInfo))

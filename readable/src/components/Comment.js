@@ -23,20 +23,20 @@ class Comment extends Component {
   }
 
   voteClickedOnComment = (option) => {
-    const { passedComment } = this.props
+    const { passedComment, editCommentDispatch } = this.props
     ReadableAPI.voteOnComment(passedComment.id, option).then((data) => {
-      editComment(data)
+      editCommentDispatch(data)
     })
 
   }
 
   deleteComment = () => {
 
-    const { passedComment } = this.props
+    const { passedComment, deleteCommentDispatch } = this.props
 
     ReadableAPI.deleteComment(passedComment.id).then((data) => {
 
-      deleteComment(passedComment.id)
+      deleteCommentDispatch(passedComment.id)
 
     })
 
@@ -52,7 +52,7 @@ class Comment extends Component {
   // if isEditClicked == true
   editComment = () => {
 
-    const { passedComment } = this.props
+    const { passedComment, editCommentDispatch } = this.props
     const { body, isEditClicked } = this.state
 
     const bodyAndTime = {
@@ -61,7 +61,7 @@ class Comment extends Component {
     }
 
     ReadableAPI.editComment(passedComment.id, bodyAndTime).then((data) => {
-      editComment(data)
+      editCommentDispatch(data)
     })
 
     this.setState({
@@ -156,9 +156,9 @@ function mapStateToProps ({ comments }) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    editComment: (data) => dispatch(editComment({ comment: data})),
-    deleteComment: (data) => dispatch(deleteComment({ commentId: data})),
-    addComment: (data) => dispatch(addComment({comment: data}))
+    editCommentDispatch: (data) => dispatch(editComment({ comment: data})),
+    deleteCommentDispatch: (data) => dispatch(deleteComment({ commentId: data})),
+    addCommentDispatch: (data) => dispatch(addComment({comment: data}))
   }
 }
 

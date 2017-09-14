@@ -26,13 +26,15 @@ class ListPosts extends Component {
 
   componentDidMount() {
 
-    const { getPosts } = this.props
+    const { getPosts, getPostsDispatch } = this.props
 
     ReadableAPI.getPosts().then((data) => {
       const filteredPosts = data.filter( (post) => post.deleted !== true )
       // dispatch action to get all posts from backend server
-      getPosts(filteredPosts)
+      getPostsDispatch(filteredPosts)
     })
+
+    console.log("componentWillUpdate")
 
   }
 
@@ -127,7 +129,7 @@ class ListPosts extends Component {
         {
           posts.display &&
           listPosts.map( (post) =>
-          <Post passedPost={post}/>)
+          <Post key={post.id} passedPost={post}/>)
         }
 
       </div>
@@ -144,7 +146,7 @@ function mapStateToProps({ posts }) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getPosts: (data) => dispatch(getPosts({posts: data})),
+    getPostsDispatch: (data) => dispatch(getPosts({posts: data})),
   }
 }
 

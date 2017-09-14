@@ -22,10 +22,10 @@ class Categories extends Component {
   }
 
   componentDidMount() {
-    const { getCategories } = this.props
+    const { getCategoriesDispatch } = this.props
     ReadableAPI.getAllCategories().then((data) => {
       // dispatch action to get categories from backend server
-      getCategories(data)
+      getCategoriesDispatch(data)
     })
   }
 
@@ -72,7 +72,7 @@ function mapStateToProps({ categories }) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getCategories: (data) => dispatch(getCategories({categories: data}))
+    getCategoriesDispatch: (data) => dispatch(getCategories({categories: data}))
   }
 }
 

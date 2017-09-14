@@ -21,4 +21,5 @@ export function editPost ( {post} ) {
     type: EDIT_POST,
     post
   }
+
 }
