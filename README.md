@@ -2,7 +2,7 @@
 
 Readable: A Content and Comment App
 
-## Installing and starting the backend server 
+## Installing and Starting The Backend Server 
 
 ```
 $ git clone https://github.com/Waleed-BS/Readable.git
@@ -11,7 +11,7 @@ $ npm install
 $ node server
 ```
 
-## Installing and starting the frontend
+## Installing and Starting The Frontend
 
 ```
 $ cd Readable
