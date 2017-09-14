@@ -6,8 +6,7 @@ Readable: A Content and Comment App
 
 ```
 $ git clone https://github.com/Waleed-BS/Readable.git
-$ cd Readable
-$ cd api-server
+$ cd Readable/api-server
 $ npm install
 $ node server
 ```
