@@ -11,11 +11,9 @@ function categories (state = initialState, action) {
   switch (action.type) {
 
     case GET_CATEGORIES:
-    console.log("categories", categories)
+
     return {
-
       ...state,
-
       display: categories
     }
 

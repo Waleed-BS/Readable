@@ -16,13 +16,11 @@ export const getAllCategories = () =>
     .then(res => res.json())
     .then(data => data.categories)
 
-export const getAllPosts = () =>
+export const getPosts = () =>
   fetch(`${api}/posts`, { headers })
     .then(res => res.json())
     .then(data => data)
 
-//author, category, title, body
-//Date.now()
 export const createPost = (post) =>
   fetch(`${api}/posts`, {
     method: 'POST',
@@ -48,14 +46,14 @@ export const voteOnPost = (postId, option) =>
     body: JSON.stringify( {option} )
   }).then(res => res.json())
 
-export const editPost = (postId, postDetails) =>
+export const editPost = (postId, title, body) =>
   fetch(`${api}/posts/${postId}`, {
     method: 'PUT',
     headers: {
       ...headers,
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify( {postDetails} )
+    body: JSON.stringify( {title, body} )
   }).then(res => res.json())
 
 
@@ -63,25 +61,25 @@ export const deletePost = (postId) =>
  fetch(`${api}/posts/${postId}`, {
    method: 'DELETE',
    headers
- }).then(res => res.json())
+ }).then(res => res.status)
 
 export const getAllComments = (postId) =>
-  fetch(`${api}/posts/${postId}/$comments`, { headers })
+  fetch(`${api}/posts/${postId}/comments`, { headers })
     .then(res => res.json())
     .then(data => data)
 
-export const addComment = (comment) =>
-  fetch(`${api}/posts/$comments`, {
+export const createComment = (comment) =>
+  fetch(`${api}/comments`, {
     method: 'POST',
     headers: {
       ...headers,
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify( {comment} )
+    body: JSON.stringify(comment)
   }).then(res => res.json())
 
-export const getComment = (postId) =>
-  fetch(`${api}/comments/${postId}`, { headers })
+export const getComments = (postId) =>
+  fetch(`${api}/posts/${postId}/comments`, { headers })
     .then(res => res.json())
     .then(data => data)
 
@@ -95,18 +93,18 @@ export const voteOnComment = (commentId, option) =>
     body: JSON.stringify( {option} )
   }).then(res => res.json())
 
-export const editComment = (commentId, commentDetails, commentBody) =>
-  fetch(`${api}/posts/${commentId}`, {
+export const editComment = (commentId, bodyAndTime) =>
+  fetch(`${api}/comments/${commentId}`, {
     method: 'PUT',
     headers: {
       ...headers,
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify( commentDetails )
+    body: JSON.stringify( bodyAndTime )
   }).then(res => res.json())
 
 export const deleteComment = (commentId) =>
-  fetch(`${api}/posts/${commentId}`, {
+  fetch(`${api}/comments/${commentId}`, {
     method: 'DELETE',
     headers
-  }).then(res => res.json())
+  }).then(res => res.status)

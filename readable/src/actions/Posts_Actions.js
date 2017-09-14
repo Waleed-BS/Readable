@@ -5,7 +5,7 @@ export const EDIT_POST = 'EDIT_POST'
 export function getPosts ( {posts} ) {
   return {
     type: GET_POSTS,
-    posts
+    posts,
   }
 }
 

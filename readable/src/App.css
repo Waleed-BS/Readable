@@ -22,3 +22,77 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.postView {
+
+}
+
+.author {
+  font-size: 14px;
+  margin-right: 10%;
+
+}
+
+.deleteButton {
+  width: 100px;
+  height: 30px;
+  /*margin-left: 30%;*/
+}
+
+.postTime {
+  font-size: 12px;
+  /*margin-left: 20px;
+  border-bottom: 20px;*/
+}
+
+
+
+.social-like, .social-dislike {
+  border: none;
+  outline: none;
+  font-size: 10px;
+  /*width: 48%;*/
+  background-color: #03A9F4;
+
+  color: #fff;
+}
+
+.social-like {
+  border-top-left-radius: 5px;
+}
+
+.social-dislike {
+  border-top-right-radius: 5px;
+  p-left: 10px;
+}
+
+/*.count, .like, .dislike {
+padding: 10px;
+}*/
+
+/*.count, .dislike {
+background-color: #03A9F4;
+border-radius: 50%;
+font-size:12px;
+margin-left: 30
+}*/
+
+.dislike {
+  margin-left: -13px;
+}
+
+.count {
+  margin-left: 10px;
+  margin-right: 10px;
+  padding: 0px;
+}
+
+.voteScore {
+  /*margin-left: 30px;
+  margin-bottom: 10px;*/
+}
+
+.CreateButton {
+  position: absolute;
+  margin-left: 30%;
+}
