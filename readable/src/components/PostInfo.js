@@ -46,11 +46,11 @@ class PostInfo extends Component {
 
   deletePost = () => {
 
-    const { post, deletePostDispatch } = this.props
+    const { match, deletePostDispatch, post } = this.props
 
-    ReadableAPI.deletePost(post.id).then((data) => {
+    ReadableAPI.deletePost(match.params.postId).then((data) => {
 
-      deletePostDispatch(post.id)
+      deletePostDispatch(post)
 
       this.props.history.push("/")
 
@@ -106,7 +106,7 @@ class PostInfo extends Component {
           <p>{body}</p>
           <p className="lead">
             <Button onClick={this.directToUpdatePage} color="success">Edit Post</Button>
-            <Button color="danger">Delete Post</Button>
+            <Button onClick={this.deletePost} color="danger">Delete Post</Button>
           </p>
         </Jumbotron>
 
