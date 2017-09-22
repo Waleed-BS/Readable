@@ -9,6 +9,7 @@ import { Button } from 'reactstrap'
 imported actions:
 */
 import { editPost, deletePost } from '../actions/Posts_Actions'
+import { getComments } from '../actions/Comments_Actions'
 
 /*
 imported components:
@@ -17,13 +18,31 @@ import React, { Component } from 'react';
 
 class Post extends Component {
 
+  state = {
+
+  }
+
+  componentDidMount() {
+
+    const { getCommentsDispatch, passedPost } = this.props
+
+    ReadableAPI.getComments(passedPost.id).then((data) => {
+      const filteredComments = data.filter( (comment) => comment.deleted !== true )
+
+      // dispatch action to get all comments from backend server
+      getCommentsDispatch(filteredComments)
+      console.log("filteredComments", filteredComments)
+      this.setState({
+        numberOfComments: filteredComments.length
+      })
+    })
+
+  }
+
   voteClickedOnPost = (option) => {
     const { passedPost, editPostDispatch } = this.props
     ReadableAPI.voteOnPost(passedPost.id, option).then((data) => {
       editPostDispatch(data)
-      // this.setState({
-      //   votes: data.voteScore
-      // })
     })
 
 
@@ -49,8 +68,10 @@ class Post extends Component {
 
   render() {
 
-    const { passedPost } = this.props
+    const { passedPost, comments } = this.props
+
     console.log("Post is rendering..")
+
     return (
 
       <div>
@@ -68,12 +89,22 @@ class Post extends Component {
 
             <Link className="postTitle" to={'/'+passedPost.category+'/'+passedPost.id}>
             {passedPost.title}</Link>
+
             {/*
               todo:
               if post is recent, display:
               <Badge>New</Badge>
               */
             }
+
+            <br></br>
+            <br></br>
+
+            <span>Number of comments: </span>
+            {
+              this.state.numberOfComments
+            }
+
             {"  "}
             <br></br>
             <br></br>
@@ -103,11 +134,19 @@ class Post extends Component {
 
 }
 
-function mapDispatchToProps (dispatch) {
+function mapStateToProps({ comments, posts }) {
   return {
-    editPostDispatch: (data) => dispatch(editPost({post: data})),
-    deletePostDispatch: (data) => dispatch(deletePost({postId: data}))
+    comments,
+    posts,
   }
 }
 
-export default withRouter(connect(null, mapDispatchToProps)(Post))
+function mapDispatchToProps (dispatch) {
+  return {
+    editPostDispatch: (data) => dispatch(editPost({post: data})),
+    deletePostDispatch: (data) => dispatch(deletePost({postId: data})),
+    getCommentsDispatch: (data) => dispatch(getComments({comments: data})),
+  }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Post))

@@ -1,26 +1,26 @@
 import {
-  GET_CATEGORIES
+	GET_CATEGORIES
 } from '../actions/Categories_Action'
 
 const initialState = {}
 
 function categories (state = initialState, action) {
 
-  const { categories } = action
+	const { categories } = action
 
-  switch (action.type) {
+	switch (action.type) {
 
-    case GET_CATEGORIES:
+	case GET_CATEGORIES:
 
-    return {
-      ...state,
-      display: categories
-    }
+		return {
+			...state,
+			display: categories
+		}
 
-    default:
-    return state
+	default:
+		return state
 
-  }
+	}
 
 }
 

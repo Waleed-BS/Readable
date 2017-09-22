@@ -60,6 +60,13 @@ class Comment extends Component {
       timestamp: Date.now()
     }
 
+    if(!body) {
+      this.setState({
+        inputError: 'Please enter a text for the body'
+      })
+      return;
+    }
+
     ReadableAPI.editComment(passedComment.id, bodyAndTime).then((data) => {
       editCommentDispatch(data)
     })
@@ -79,11 +86,11 @@ class Comment extends Component {
   }
 
   render() {
-
     const { passedComment } = this.props
     const { isEditClicked, body } = this.state
 
     console.log("Comment is rendering..")
+
     return (
 
       <div>
@@ -91,14 +98,13 @@ class Comment extends Component {
         <div className="commentView">
 
           <h7>
-            <br></br>
 
+            <br></br>
 
             <p className="lead">
               <Button onClick={this.setIsEditClickedToTrue} color="success">Edit Comment</Button>
               <Button onClick={this.deleteComment} color="danger">Delete Comment</Button>
             </p>
-
 
             {
               isEditClicked ? (
@@ -112,6 +118,13 @@ class Comment extends Component {
                   </span> {timeago().format(passedComment.timestamp)} </p>
                   <p className="commentTime"> <span className="commentBody"> {passedComment.body} </span></p>
                 </div>
+              )
+            }
+
+            {
+              this.state.inputError &&
+              (
+                <div style={{ fontSize: 15, marginTop: 40, marginBottom: 40, color: 'red' }}>ERROR!: {this.state.inputError}</div>
               )
             }
 

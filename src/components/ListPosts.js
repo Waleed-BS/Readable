@@ -7,8 +7,8 @@ import { withRouter } from 'react-router'
 /*
 imported actions:
 */
-
 import { getPosts } from '../actions/Posts_Actions'
+import { getComments } from '../actions/Comments_Actions'
 
 /*
 imported components:
@@ -26,15 +26,14 @@ class ListPosts extends Component {
 
   componentDidMount() {
 
-    const { getPosts, getPostsDispatch } = this.props
+    const { getPostsDispatch } = this.props
 
     ReadableAPI.getPosts().then((data) => {
       const filteredPosts = data.filter( (post) => post.deleted !== true )
       // dispatch action to get all posts from backend server
       getPostsDispatch(filteredPosts)
-    })
 
-    console.log("componentWillUpdate")
+    })
 
   }
 
@@ -129,7 +128,8 @@ class ListPosts extends Component {
         {
           posts.display &&
           listPosts.map( (post) =>
-          <Post key={post.id} passedPost={post}/>)
+            <Post key={post.id} passedPost={post}/>
+          )
         }
 
       </div>
@@ -138,15 +138,17 @@ class ListPosts extends Component {
 
 }
 
-function mapStateToProps({ posts }) {
+function mapStateToProps({ posts, comments }) {
   return {
     posts,
+    comments,
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     getPostsDispatch: (data) => dispatch(getPosts({posts: data})),
+    getCommentsDispatch: (data) => dispatch(getComments({comments: data})),
   }
 }
 

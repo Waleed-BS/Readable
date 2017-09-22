@@ -35,7 +35,7 @@ class PostInfo extends Component {
   }
 
   voteClickedOnPost = (option) => {
-    const { match, editPostDispatch } = this.props
+    const { match } = this.props
     ReadableAPI.voteOnPost(match.params.postId, option).then((data) => {
       this.setState({
         votes: data.voteScore

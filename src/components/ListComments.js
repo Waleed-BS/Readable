@@ -23,7 +23,8 @@ class ListComments extends Component {
     voteIsClicked: 'primary',
     timeIsClicked: 'secondary',
     newBody: '',
-    newAuthor: ''
+    newAuthor: '',
+    inputError: null,
   }
 
   componentDidMount() {
@@ -32,8 +33,10 @@ class ListComments extends Component {
 
     ReadableAPI.getComments(match.params.postId).then((data) => {
       const filteredComments = data.filter( (comment) => comment.deleted !== true )
+
       // dispatch action to get all comments from backend server
       getCommentsDispatch(filteredComments)
+
     })
 
   }
@@ -56,13 +59,16 @@ class ListComments extends Component {
 
   handleNewBodyChange = (event) => {
     this.setState({
-      newBody: event.target.value
+      newBody: event.target.value,
+      inputError: null,
     })
+
   }
 
   handleNewAuthorChange = (event) => {
     this.setState({
-      newAuthor: event.target.value
+      newAuthor: event.target.value,
+      inputError: null,
     })
   }
 
@@ -70,6 +76,20 @@ class ListComments extends Component {
 
     const { newBody, newAuthor } = this.state
     const { match, addCommentDispatch } = this.props
+
+    if(!this.state.newAuthor) {
+      this.setState({
+        inputError: 'Please enter a text for the author'
+      })
+      return;
+    }
+
+    if(!this.state.newBody) {
+      this.setState({
+        inputError: 'Please enter a text for the body'
+      })
+      return;
+    }
 
     const newComment = {
       id: uuidv4(),
@@ -132,6 +152,16 @@ class ListComments extends Component {
           </Button>
         </ButtonGroup>
 
+        <br></br>
+        <br></br>
+
+        <span>Number of comments: </span>
+
+        {
+          comments.display &&
+          comments.display.length
+        }
+
         {
           comments.display &&
           listComments.map( (comment) =>
@@ -150,6 +180,13 @@ class ListComments extends Component {
           <Button onClick={this.addComment} color='primary'>Submit</Button>
 
         </Form>
+
+        {
+          this.state.inputError &&
+          (
+            <div style={{ fontSize: 15, marginTop: 40, marginBottom: 40, color: 'red' }}>ERROR!: {this.state.inputError}</div>
+          )
+        }
 
       </div>
     );

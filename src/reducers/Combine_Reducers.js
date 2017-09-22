@@ -4,5 +4,5 @@ import posts from './Posts_Reducer'
 import { combineReducers } from 'redux'
 
 export default combineReducers({
-  categories, comments, posts
+	categories, comments, posts
 })

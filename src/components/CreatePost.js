@@ -5,11 +5,10 @@ import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { withRouter } from 'react-router'
 import uuidv4 from 'uuid/v4'
 
-
 /*
 imported components:
 */
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import Categories from './Categories'
 
 class CreatePost extends Component {
@@ -19,6 +18,7 @@ class CreatePost extends Component {
     body: '',
     author: '',
     category: '',
+    inputError: null,
   }
 
   componentDidMount() {
@@ -57,12 +57,54 @@ class CreatePost extends Component {
 
     const { title, body } = this.state
 
+    if(!this.state.title) {
+      this.setState({
+        inputError: 'Please enter a text for the title'
+      })
+      return;
+    }
+
+    if(!this.state.body) {
+      this.setState({
+        inputError: 'Please enter a text for the body'
+      })
+      return;
+    }
+
     ReadableAPI.editPost( this.postId, title, body).then((data) => {
       this.props.history.push("/")
     })
   }
 
   createPost = () => {
+
+    if(!this.state.author) {
+      this.setState({
+        inputError: 'Please enter a text for the author'
+      })
+      return;
+    }
+
+    if(!this.state.title) {
+      this.setState({
+        inputError: 'Please enter a text for the title'
+      })
+      return;
+    }
+
+    if(!this.state.body) {
+      this.setState({
+        inputError: 'Please enter a text for the body'
+      })
+      return;
+    }
+
+    if(!this.state.category) {
+      this.setState({
+        inputError: 'Please choose a category'
+      })
+      return;
+    }
 
     const newPost = {
       id: uuidv4(),
@@ -136,6 +178,13 @@ class CreatePost extends Component {
             <Label for="exampleText">Body</Label>
             <Input value={this.state.body} onChange={this.bodyUpdate} type="text" name="text" id="exampleText" />
           </FormGroup>
+
+          {
+            this.state.inputError &&
+            (
+              <div style={{ fontSize: 15, marginTop: 40, marginBottom: 40, color: 'red' }}>ERROR!: {this.state.inputError}</div>
+            )
+          }
 
           <legend>Choose Category</legend>
 

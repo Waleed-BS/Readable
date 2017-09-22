@@ -7,39 +7,40 @@ import { withRouter } from 'react-router'
 /*
 imported components:
 */
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import CreatePost from './CreatePost'
 import PostInfo from './PostInfo'
 import Main from './Main'
 
 class Readable extends Component {
 
-  render() {
-    console.log("App is rendering..")
+	render() {
 
-    return (
+		console.log('App is rendering..')
 
-      <div className="App">
+		return (
 
-        {/* removing path renders this always*/}
+			<div className="App">
 
-        <Switch>
+				{/* removing path renders this always*/}
 
-          <Route exact path='/' component={Main}/>
+				<Switch>
 
-          <Route exact path='/createpost' component={CreatePost}/>
+					<Route exact path='/' component={Main}/>
 
-          <Route path='/updatepost/:postId' component={CreatePost}/>
+					<Route exact path='/createpost' component={CreatePost}/>
 
-          <Route path='/:category/:postId' component={PostInfo}/>
+					<Route path='/updatepost/:postId' component={CreatePost}/>
 
-          <Route path='/:category' component={Main}/>
+					<Route path='/:category/:postId' component={PostInfo}/>
 
-        </Switch>
+					<Route path='/:category' component={Main}/>
 
-      </div>
-    );
-  }
+				</Switch>
+
+			</div>
+		)
+	}
 
 }
 
