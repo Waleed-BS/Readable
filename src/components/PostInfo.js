@@ -19,7 +19,7 @@ import ListComments from './ListComments'
 class PostInfo extends Component {
 
   state = {
-
+    votes: 0
   }
 
   componentDidMount() {

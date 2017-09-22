@@ -19,7 +19,7 @@ import React, { Component } from 'react';
 class Post extends Component {
 
   state = {
-
+    numberOfComments: 0
   }
 
   componentDidMount() {
@@ -115,7 +115,7 @@ class Post extends Component {
 
               {" "+ passedPost.voteScore + " "}
 
-              <button className="social-dislike" onClick={() => this.voteClickedOnPost('downVote')}>
+              <button  className="social-dislike" onClick={() => this.voteClickedOnPost('downVote')}>
                 <span className="like"><i className="glyphicon glyphicon-thumbs-down"></i></span>
                 {/* <span className="dislike" >0</span> */}
               </button>

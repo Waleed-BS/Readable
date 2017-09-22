@@ -26,6 +26,7 @@
     "babel-eslint": "^8.0.0",
     "eslint": "^4.7.1",
     "eslint-config-airbnb": "^15.1.0",
+    "eslint-config-google": "^0.9.1",
     "eslint-config-rallycoding": "^3.2.0",
     "eslint-plugin-react": "^7.3.0"
   }
