@@ -12,6 +12,14 @@ import CreatePost from './CreatePost'
 import PostInfo from './PostInfo'
 import Main from './Main'
 
+var NotFound = ({location}) => (
+	<div>
+		<h3>No match for <code>{location.pathname}</code></h3>
+		<h3>404 page not found</h3>
+		<p>We are sorry but the page you are looking for does not exist.</p>
+	</div>
+)
+
 class Readable extends Component {
 
 	render() {
@@ -22,7 +30,8 @@ class Readable extends Component {
 
 			<div className="App">
 
-				{/* removing path renders this always*/}
+				{/* a root with no path always matches*/}
+
 
 				<Switch>
 
@@ -30,18 +39,24 @@ class Readable extends Component {
 
 					<Route exact path='/createpost' component={CreatePost}/>
 
-					<Route path='/updatepost/:postId' component={CreatePost}/>
+					<Route exact path='/:category' component={Main}/>
+
+					<Route exact path='/updatepost/:postId' component={CreatePost}/>
 
 					<Route path='/:category/:postId' component={PostInfo}/>
 
-					<Route path='/:category' component={Main}/>
+					<Route component={NotFound}/>
 
 				</Switch>
+
+
 
 			</div>
 		)
 	}
 
 }
+
+
 
 export default withRouter(connect()(Readable))

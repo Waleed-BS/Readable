@@ -31,7 +31,7 @@ class Post extends Component {
 
       // dispatch action to get all comments from backend server
       getCommentsDispatch(filteredComments)
-      console.log("filteredComments", filteredComments)
+      // console.log("filteredComments", filteredComments)
       this.setState({
         numberOfComments: filteredComments.length
       })
@@ -68,7 +68,7 @@ class Post extends Component {
 
   render() {
 
-    const { passedPost, comments } = this.props
+    const { passedPost } = this.props
 
     console.log("Post is rendering..")
 
