@@ -45,6 +45,7 @@ class Readable extends Component {
 
 					<Route path='/:category/:postId' component={PostInfo}/>
 
+					{/* not working yet */}
 					<Route component={NotFound}/>
 
 				</Switch>
