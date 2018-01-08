@@ -1,4 +1,4 @@
-Readable: A Post and Comment App
+Readable: A Post and Comment App.
 
 ## Installing and Starting The Backend Server 
 
