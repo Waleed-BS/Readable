@@ -1,6 +1,4 @@
-# Udacity React Nanodegree Project 2
-
-Readable: A Content and Comment App
+Readable: A Post and Comment App
 
 ## Installing and Starting The Backend Server 
 
