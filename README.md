@@ -1,15 +1,17 @@
-Readable: A Post and Comment App.
+# Readable
 
-## Installing and Starting The Backend Server 
+Readable is a post and comment responsive Single-Page app. Users can create posts under a chosen category, comment on posts, edit/delete or vote on posts or comments, and sort posts or comments by time or votes.
+
+
+## Installing Dependencies and Starting The API Server 
 
 ```
-$ git clone https://github.com/Waleed-BS/Readable.git
 $ cd Readable/api-server
 $ npm install
 $ node server
 ```
 
-## Installing and Starting The Frontend
+## Installing Dependencies and Starting The Frontend
 
 ```
 $ cd Readable
