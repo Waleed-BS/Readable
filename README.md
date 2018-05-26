@@ -12,7 +12,7 @@ You only need to install [**Node.js**](https://nodejs.org/en/).
 
 ### Install 
 
-Git clone this repository then change current directory. 
+Git clone this repository then change your current directory. 
 
 ```
 $ git clone https://github.com/Waleed-BS/Readable.git
@@ -40,7 +40,7 @@ Run [**express**](https://expressjs.com/) server.
 $ node ./api-server/server
 ```
 
-Run [**Webpack**](https://webpack.js.org/) developer server 
+Run [**webpack**](https://webpack.js.org/) developer server 
 
 
 ```
