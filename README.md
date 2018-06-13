@@ -40,7 +40,7 @@ Run [**express**](https://expressjs.com/) server.
 $ node ./api-server/server
 ```
 
-Run [**webpack**](https://webpack.js.org/) developer server 
+Run [**webpack**](https://webpack.js.org/) development server 
 
 
 ```
