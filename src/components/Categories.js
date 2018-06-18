@@ -1,8 +1,7 @@
-import '../App.css'
 import { connect } from 'react-redux'
 import * as ReadableAPI from '../utils/ReadableAPI'
 import { Link } from 'react-router-dom'
-import { Breadcrumb, BreadcrumbItem } from 'reactstrap'
+import { Button } from 'reactstrap'
 import { withRouter } from 'react-router'
 
 /*
@@ -30,28 +29,30 @@ class Categories extends Component {
 
 		const { categories } = this.props
 		console.log('Categories is rendering..')
+		console.log("this.props.history.location ", this.props.history.location.pathname);
 
 		return (
 
-			<div className="Categories">
+			<div className="categories">
 
-				<Breadcrumb>
+				<ul className="breadcrumb">
+					<li style={{textAlign: 'center'}}>
+						<Link to='/'> All </Link>
+					</li>
+					{categories.display && categories.display.map( (category) => (
+        		<li key={category.path}>
+        			<Link key={category.path} to={'/'+category.path}>
+          			<span >{category.name}</span>
+      				</Link>
+						</li>
+					))}
+				</ul>
 
-					<BreadcrumbItem>
-						<Link to='/'> All Categories </Link>
-					</BreadcrumbItem>
-          {
-            categories.display &&
-            categories.display.map( (category) => (
-              <BreadcrumbItem key={category.path}>
-              <Link key={category.path} to={'/'+category.path}>
-              <span >{category.name}</span>
-              </Link>
-              </BreadcrumbItem>))
-          }
-
-				</Breadcrumb>
-
+				{this.props.history.location.pathname !== "/createpost" &&
+					<Button className="newpost" onClick={() => this.props.history.push("/createpost")} color="primary">
+						Submit a new post
+					</Button>
+				}
 			</div>
 		)
 

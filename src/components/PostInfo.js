@@ -1,19 +1,16 @@
-import '../App.css'
 import { connect } from 'react-redux'
 import * as ReadableAPI from '../utils/ReadableAPI'
 import timeago from 'timeago.js'
 import { withRouter } from 'react-router'
-import { Jumbotron, Button } from 'reactstrap'
-/*
-imported actions:
-*/
+
+/* icons: */
+import clock_icon from '../assets/icons/clock.png'
+import like_icon from '../assets/icons/like_button.png'
+/* actions: */
 import { editPost, deletePost } from '../actions/Posts_Actions'
 
-/*
-imported components:
-*/
+/* components: */
 import React, { Component } from 'react';
-import Categories from './Categories'
 import ListComments from './ListComments'
 
 class PostInfo extends Component {
@@ -82,41 +79,40 @@ class PostInfo extends Component {
     return (
 
       <div className="PostInfo">
-
-        <Categories/>
-
-        <div className="voteScore">
-          <button className="social-like" onClick={() => this.voteClickedOnPost('upVote')}>
-            <span className="like"><i className="glyphicon glyphicon-thumbs-up"></i></span>
-          </button>
-
-          {" "+ this.state.votes + " "}
-
-          <button className="social-dislike" onClick={() => this.voteClickedOnPost('downVote')}>
-            <span className="like"><i className="glyphicon glyphicon-thumbs-down"></i></span>
-            {/* <span className="dislike" >0</span> */}
-          </button>
-
+        <div className="container">
+          <div className="post-detail">
+            <div className="edit-delete-wrapper">
+              <button onClick={this.directToUpdatePage} color="success">Edit</button>
+              <button onClick={this.deletePost} color="danger">Delete</button>
+            </div>
+            <br/>
+            <br/>
+            <div className="post-title">
+              <h1>{this.state.title}</h1>
+            </div>
+            <hr/>
+            <div className="post-author-time">
+              <p>posted by <span>{author}</span></p>
+              <p>
+                {timeago().format(timestamp) + " "}
+                <img alt="Time of the post" height="15" width="15" src={clock_icon}></img>
+              </p>
+              <p>
+                <img className="like" src={like_icon} alt="Like post" width="15" height="15" onClick={() => this.voteClickedOnPost('upVote')}></img>
+                <span>{"  " + this.state.votes + "  "}</span>
+                <img className="dislike" src={like_icon} alt="Dislike post" width="15" height="15" style={{transform: "rotate(180deg)"}} onClick={() => this.voteClickedOnPost('downVote')}></img>
+              </p>
+            </div>
+            <div className="post-body">
+              <p>{body}</p>
+            </div>
+          </div>
+          <ListComments/>
         </div>
 
-        <p>posted {timeago().format(timestamp)} by {author}</p>
-        <Jumbotron>
-          <h3 className="display-3">{this.state.title}</h3>
-          <hr className="my-2" />
-          <p>{body}</p>
-          <p className="lead">
-            <Button onClick={this.directToUpdatePage} color="success">Edit Post</Button>
-            <Button onClick={this.deletePost} color="danger">Delete Post</Button>
-          </p>
-        </Jumbotron>
-
-        <ListComments/>
-
       </div>
-
     );
   }
-
 }
 
 

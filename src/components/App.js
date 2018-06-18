@@ -10,7 +10,8 @@ imported components:
 import React, { Component } from 'react'
 import CreatePost from './CreatePost'
 import PostInfo from './PostInfo'
-import Main from './Main'
+import Categories from './Categories'
+import ListPosts from './ListPosts'
 
 var NotFound = ({location}) => (
 	<div>
@@ -32,14 +33,15 @@ class Readable extends Component {
 
 				{/* a root with no path always matches*/}
 
+				<Route component={Categories}/>
 
 				<Switch>
 
-					<Route exact path='/' component={Main}/>
+					<Route exact path='/' component={ListPosts}/>
 
 					<Route exact path='/createpost' component={CreatePost}/>
 
-					<Route exact path='/:category' component={Main}/>
+					<Route exact path='/:category' component={ListPosts}/>
 
 					<Route exact path='/updatepost/:postId' component={CreatePost}/>
 

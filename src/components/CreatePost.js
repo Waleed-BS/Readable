@@ -1,15 +1,10 @@
-import '../App.css'
 import { connect } from 'react-redux'
 import * as ReadableAPI from '../utils/ReadableAPI'
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { withRouter } from 'react-router'
 import uuidv4 from 'uuid/v4'
 
-/*
-imported components:
-*/
 import React, { Component } from 'react'
-import Categories from './Categories'
 
 class CreatePost extends Component {
 
@@ -151,46 +146,34 @@ class CreatePost extends Component {
 
     return (
 
-      <div className="CreatePost">
-
-        <Categories/>
-
-        <br>
-        </br>
-
-        <Form>
-          {!this.postId ? (
+      <div className="createpost">
+        <div className="container">
+          <Form>
+            {!this.postId ? (
+              <FormGroup>
+                <Label>Author</Label>
+                <Input style={{width: "150px"}} value={this.state.author} onChange={this.authorUpdate} type="text" name="text" placeholder="Author" />
+              </FormGroup>
+            ) : (
+              <FormGroup>
+                <Label>Author</Label>
+                <Input disabled value={this.state.author} onChange={this.authorUpdate} type="text" name="text" placeholder="Author" />
+              </FormGroup>
+            )}
             <FormGroup>
-              <Label>Author</Label>
-              <Input value={this.state.author} onChange={this.authorUpdate} type="text" name="text" placeholder="Author" />
+              <Label>Title</Label>
+              <Input value={this.state.title} onChange={this.titleUpdate} type="text" name="text" placeholder="Title" />
             </FormGroup>
-          ) : (
             <FormGroup>
-              <Label>Author</Label>
-              <Input disabled value={this.state.author} onChange={this.authorUpdate} type="text" name="text" placeholder="Author" />
+              <Label for="exampleText">Body</Label>
+              <Input value={this.state.body} onChange={this.bodyUpdate} type="textarea" name="text" id="exampleText" />
             </FormGroup>
-          )}
-          <FormGroup>
-            <Label>Title</Label>
-            <Input value={this.state.title} onChange={this.titleUpdate} type="text" name="text" placeholder="Title" />
-          </FormGroup>
-          <FormGroup>
-            <Label for="exampleText">Body</Label>
-            <Input value={this.state.body} onChange={this.bodyUpdate} type="text" name="text" id="exampleText" />
-          </FormGroup>
-
-          {
-            this.state.inputError &&
-            (
+            {this.state.inputError && (
               <div style={{ fontSize: 15, marginTop: 40, marginBottom: 40, color: 'red' }}>ERROR!: {this.state.inputError}</div>
-            )
-          }
+            )}
 
-          <legend>Choose Category</legend>
-
-          {
-            categories.display &&
-            categories.display.map((category) => (
+            <legend>Choose Category</legend>
+            {categories.display && categories.display.map((category) => (
               <div key={category.name} className="just so that jsx works">
                 {!this.postId ? (
                   <FormGroup check>
@@ -208,18 +191,15 @@ class CreatePost extends Component {
                   </FormGroup>
                 )}
               </div>
-            ))
-          }
-
-          <Button color='primary' onClick={this.checkIfCreateOrEdit}>Submit</Button>
-
-        </Form>
+            ))}
+            <br/>
+            <Button color='primary' onClick={this.checkIfCreateOrEdit}>Submit</Button>
+          </Form>
+        </div>
 
       </div>
-
     );
   }
-
 }
 
 function mapStateToProps({ categories }) {

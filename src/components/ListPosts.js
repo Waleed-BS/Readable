@@ -1,4 +1,3 @@
-import '../App.css'
 import { connect } from 'react-redux'
 import * as ReadableAPI from '../utils/ReadableAPI'
 import { ButtonGroup, Button } from 'reactstrap'
@@ -109,28 +108,32 @@ class ListPosts extends Component {
 
     return (
 
-      <div className="ListPosts">
+      <div className="listposts">
 
-        <ButtonGroup size="sm">
-          <Button
-            // active={true}
-            color={`${this.state.timeIsClicked}`}
-            onClick={this.setSortByTime}>
-            Time
-          </Button>
-          <Button
-            color={`${this.state.voteIsClicked}`}
-            onClick={this.setSortByVotes}>
-            Vote
-          </Button>
-        </ButtonGroup>
 
-        {
-          posts.display &&
-          listPosts.map( (post) =>
-            <Post key={post.id} passedPost={post}/>
-          )
-        }
+
+        <div className="container">
+          <ButtonGroup className="sortbutton" size="sm">
+            <Button
+              // active={true}
+              color={`${this.state.timeIsClicked}`}
+              onClick={this.setSortByTime}>
+              Time
+            </Button>
+            <Button
+              color={`${this.state.voteIsClicked}`}
+              onClick={this.setSortByVotes}>
+              Vote
+            </Button>
+          </ButtonGroup>
+          <ol className="posts-grid">
+            { posts.display && listPosts.map( (post) =>
+              <li key={post.id}>
+                <Post passedPost={post}/>
+              </li>
+            )}
+          </ol>
+        </div>
 
       </div>
     );

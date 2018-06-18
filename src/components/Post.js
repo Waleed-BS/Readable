@@ -1,19 +1,17 @@
-import '../App.css'
 import { connect } from 'react-redux'
 import * as ReadableAPI from '../utils/ReadableAPI'
 import { Link } from 'react-router-dom'
 import timeago from 'timeago.js'
 import { withRouter } from 'react-router'
-import { Button } from 'reactstrap'
-/*
-imported actions:
-*/
+
+/* icons: */
+import like_icon from '../assets/icons/like_button.png'
+import comment_icon from '../assets/icons/comment.png'
+/* actions: */
 import { editPost, deletePost } from '../actions/Posts_Actions'
 import { getComments } from '../actions/Comments_Actions'
 
-/*
-imported components:
-*/
+/* components: */
 import React, { Component } from 'react';
 
 class Post extends Component {
@@ -68,70 +66,37 @@ class Post extends Component {
 
   render() {
 
-    const { passedPost } = this.props
+    const { passedPost } = this.props;
 
     console.log("Post is rendering..")
 
     return (
+      <div className="post">
 
-      <div>
-
-        <div className="postView">
-
-          <h4>
-            <br></br>
-            <p className="lead">
-              <Button onClick={this.directToUpdatePage} color="success">Edit Post</Button>
-              <Button onClick={this.deletePost} color="danger">Delete Post</Button>
-            </p>
-
-            <p className="postTime"> <span className="author"> by {passedPost.author} </span> { timeago().format(passedPost.timestamp) } </p>
-
-            <Link className="postTitle" to={'/'+passedPost.category+'/'+passedPost.id}>
-            {passedPost.title}</Link>
-
-            {/*
-              todo:
-              if post is recent, display:
-              <Badge>New</Badge>
-              */
-            }
-
-            <br></br>
-            <br></br>
-
-            <span>Number of comments: </span>
-            {
-              this.state.numberOfComments
-            }
-
-            {"  "}
-            <br></br>
-            <br></br>
-            <div className="voteScore">
-              <button className="social-like" onClick={() => this.voteClickedOnPost('upVote')}>
-                <span className="like"><i className="glyphicon glyphicon-thumbs-up"></i></span>
-              </button>
-
-              {" "+ passedPost.voteScore + " "}
-
-              <button  className="social-dislike" onClick={() => this.voteClickedOnPost('downVote')}>
-                <span className="like"><i className="glyphicon glyphicon-thumbs-down"></i></span>
-                {/* <span className="dislike" >0</span> */}
-              </button>
-
-            </div>
-
-            <br></br>
-
-          </h4>
+        <div className="vote-container">
+          <img src={like_icon} alt="Like post" width="15" height="15" onClick={() => this.voteClickedOnPost('upVote')}></img>
+          {" "+ passedPost.voteScore + " "}
+          <img src={like_icon} alt="Dislike post" width="15" height="15" style={{transform: "rotate(180deg)"}} onClick={() => this.voteClickedOnPost('downVote')}></img>
         </div>
+        <div className="post-content-container">
+          <Link to={'/'+passedPost.category+'/'+passedPost.id}>
+          <h4>{passedPost.title}</h4>
+          </Link>
+          <p>posted by {passedPost.author + " | " + timeago().format(passedPost.timestamp) } </p>
+        </div>
+        <div className="message-wrapper">
+          <img src={comment_icon} alt="Number of comments" width={20} height={20}/>
+          <span className="comment-count"> {this.state.numberOfComments} </span>
+        </div>
+        <div className="edit-delete-wrapper">
+          <button size="sm" onClick={this.directToUpdatePage}>Edit </button>
+          <button size="sm" onClick={this.deletePost}>Delete </button>
+        </div>
+        <br></br>
 
       </div>
-
     );
   }
-
 }
 
 function mapStateToProps({ comments, posts }) {

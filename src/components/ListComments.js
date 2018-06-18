@@ -1,18 +1,16 @@
-import '../App.css'
 import { connect } from 'react-redux'
 import * as ReadableAPI from '../utils/ReadableAPI'
 import { ButtonGroup, Button, Form, FormGroup, Label, Input  } from 'reactstrap'
 import { withRouter } from 'react-router'
 import uuidv4 from 'uuid/v4'
 
-/*
-imported actions:
-*/
+/* icons */
+import comment_icon from '../assets/icons/comment.png'
+
+/* actions: */
 import { getComments, deleteComment, editComment, addComment } from '../actions/Comments_Actions'
 
-/*
-imported components:
-*/
+/* components: */
 import React, { Component } from 'react';
 import Comment from './Comment'
 
@@ -135,10 +133,35 @@ class ListComments extends Component {
     }
 
     return (
+      <div className="listcomments">
 
-      <div className="ListComments">
-
-        <ButtonGroup size="sm">
+        <Form>
+          <FormGroup>
+            <Label size="sm" for="exampleText">Add a new comment...</Label>
+            <span
+              style={{
+                padding: 5,
+                marginLeft: 30,
+                color: "rgb(2, 123, 254)"
+              }}>
+              {comments.display && comments.display.length}
+            </span>
+            <img alt="Number of comments" width="15" height="15" src={comment_icon}/>
+            <Input value={newAuthor} onChange={this.handleNewAuthorChange} type="text" name="text" bsSize="sm" placeholder="Nickname" />
+            <br/>
+            <Input value={newBody} onChange={this.handleNewBodyChange} type="textarea" name="text" placeholder="Write your comment here" />
+          </FormGroup>
+          <Button onClick={this.addComment} color='primary'>Submit</Button>
+        </Form>
+        {
+          this.state.inputError &&
+          (
+            <div style={{ fontSize: 15, marginTop: 40, marginBottom: 40, color: 'red' }}>ERROR!: {this.state.inputError}</div>
+          )
+        }
+        <br></br>
+        <br></br>
+        <ButtonGroup className="sortbutton" size="sm">
           <Button
             // active={true}
             color={`${this.state.timeIsClicked}`}
@@ -151,47 +174,16 @@ class ListComments extends Component {
             Vote
           </Button>
         </ButtonGroup>
-
-        <br></br>
-        <br></br>
-
-        <span>Number of comments: </span>
-
-        {
-          comments.display &&
-          comments.display.length
-        }
-
-        {
-          comments.display &&
-          listComments.map( (comment) =>
-          <Comment key={comment.id} passedComment={comment}/>)
-        }
-
-        <Form>
-
-          <FormGroup>
-            <Label for="exampleText">Post New Comment</Label>
-            <Input value={newAuthor} onChange={this.handleNewAuthorChange} type="text" name="text" placeholder="Username" />
-
-            <Input value={newBody} onChange={this.handleNewBodyChange} type="text" name="text" placeholder="Write your comment here" />
-          </FormGroup>
-
-          <Button onClick={this.addComment} color='primary'>Submit</Button>
-
-        </Form>
-
-        {
-          this.state.inputError &&
-          (
-            <div style={{ fontSize: 15, marginTop: 40, marginBottom: 40, color: 'red' }}>ERROR!: {this.state.inputError}</div>
-          )
-        }
-
+        <ol className="comments-grid">
+        {comments.display && listComments.map( (comment, index) =>
+          <li key={index}>
+            <Comment key={comment.id} passedComment={comment}/>
+          </li>
+        )}
+        </ol>
       </div>
     );
   }
-
 }
 
 function mapStateToProps({ comments }) {
